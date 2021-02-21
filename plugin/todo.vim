@@ -3,7 +3,6 @@ let g:todo#done='✅'
 let g:todo#undone='❎'
 nnoremap <leader>o :call todo#OpenTodo()<CR>
 function todo#OpenTodo()
-    echo g:source[:-16]
     execute 'vs ' g:SourceTodo
     setlocal noma
     setf Todo-list
