@@ -10,7 +10,7 @@ procedure main()
 end
 
 procedure isGood(s)
-    if match(s[1:6],"[❎]") then {
+    if match(s[1:6],"[✗]") then {
         return 1
     }
     return 0
