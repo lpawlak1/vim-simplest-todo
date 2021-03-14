@@ -1,0 +1,19 @@
+procedure main()
+    intext := open("marks.md")
+    outtext := open("todo.md","w")
+    done := read(intext)
+    undone := read(intext)
+    intext := open("tod.md")
+    while line := read(intext) do {
+        write(line)
+        if find(done,line) then{
+            write(outtext, "1")
+            write(outtext, line[find("]",line)+1:0])
+        } 
+        if find(undone,line) then {
+            write(outtext, "0")
+            write(outtext, line[find("]",line)+1:0])
+        }
+    }
+    write("end")
+end
