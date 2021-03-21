@@ -44,7 +44,7 @@ end
 
 local function get_data()
     data ={}
-    f= io.open(vim.g.SourceTodo)
+    f= io.open(vim.g.SourceFolder .. "todo.md")
     new = true
     new_checked=false
     str=''
@@ -76,13 +76,19 @@ end
 
 local function rename(popup)
     index, line = popup:get_current_selection()
-    vim.g.input_message="Give the name of renamed todo item: "
-    new_name = vim.fn['todo#input']() 
-    --# todo ze jak jest pusty input to nic nie robic
+    end_index = line:find("|",1)
+    vim.g.input_message="Give the name of renamed todo item. Enter q to cancel: "
+    name = vim.fn['todo#input'](line:sub(end_index+2)) 
+    while name == '' do
+        name = vim.fn['todo#input']() 
+    end
+    if name == 'q' or name=='Q' then
+        return
+    end
     if string.find(line,get_checked(),1,true) then
-        line = get_checked() .. " " .. new_name
+        line = get_checked() .. " " .. os.date("%d/%m/%y, %H:%M| ") .. name
     else
-        line = get_unchecked() .. " " .. new_name
+        line = get_unchecked() .. " " .. os.date("%d/%m/%y, %H:%M| ") .. name
     end
     popup.list:renameElement(index,line)
 end
@@ -116,17 +122,22 @@ local opts = {
             ['a'] = function(popup)
                 index, line = popup:get_current_selection()
                 vim.g.input_message="Give the name of new todo item, send q to escape: "
-                name = vim.fn['todo#input']() 
+                name = vim.fn['todo#input']('') 
                 while name == '' do
                     name = vim.fn['todo#input']() 
                 end
                 if name == 'q' or name=='Q' then
                     return
                 end
-                popup.list:addData({get_unchecked() .. " " .. name})
+                popup.list:addData({get_unchecked() .. " " .. os.date("%d/%m/%y, %H:%M| ") .. name})
             end,
-            ['t'] = function(popup)
-                print()
+            ['i'] = function(popup)
+                index, line = popup:get_current_selection()
+            end,
+            ['tt'] = function(popup)
+                index, line = popup:get_current_selection()
+                end_index = line:find("|",1)
+                print(end_index)
             end,
         }
     },
