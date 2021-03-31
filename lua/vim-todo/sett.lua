@@ -1,3 +1,8 @@
 vim.g['todo#done'] = '✓'
 vim.g['todo#undone'] = '✗'
--- TODO zeby tu bylo to co wazne czyli klawisze do obslugi
+vim.g['todo#quit'] = 'q'
+vim.g['todo#quit2'] = '<Esc>'
+vim.g['todo#check'] = '<CR>'
+vim.g['todo#delete'] = 'd'
+vim.g['todo#rename'] = 'r'
+vim.g['todo#add'] = 'a'

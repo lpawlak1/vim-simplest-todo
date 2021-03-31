@@ -101,25 +101,25 @@ local opts = {
     data = get_data(), 
     keymaps = {
         n = {
-            ['q'] = function(popup)
+            [vim.g['todo#quit']] = function(popup)
                 save()
                 popup:close(close_callback)
             end,
-            ['<Esc>'] = function(popup)
+            [vim.g['todo#quit2']] = function(popup)
                 save()
                 popup:close(close_callback)
             end,
-            ['<CR>'] = function(popup)
+            [vim.g['todo#check']] = function(popup)
                 check(popup)
             end,
-            ['d'] = function(popup)
+            [vim.g['todo#delete']] = function(popup)
                 index, line = popup:get_current_selection()
                 popup.list:clearElement(index)
             end,
-            ['r'] = function(popup)
+            [vim.g['todo#rename']] = function(popup)
                 rename(popup)
             end,
-            ['a'] = function(popup)
+            [vim.g['todo#add']] = function(popup)
                 index, line = popup:get_current_selection()
                 vim.g.input_message="Give the name of new todo item, send q to escape: "
                 name = vim.fn['todo#input']('') 
