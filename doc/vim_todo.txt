@@ -1,0 +1,79 @@
+*vim_todo.txt*  Plugin that let's you make global todo list
+
+=============================================================================
+0. INTRO                                                    *vim-todo-intro*
+
+
+=============================================================================
+1. USAGE INSTRUCTIONS                                        *vim-todo-usage*
+
+At the moment plugin supports only keyboard shortcuts
+presented in |vim-todo-settings| and can be adjusted for needs. 
+Defaults are in |vim-todo-defaults|.
+
+Current state presents actions:
+    - adding element to list:
+        Adds element to the very end of the list, gets input from |input|,
+        uses `todo#add`,
+
+    - deleting element from list:
+        Deletes element from under the cursor, without warning, uses
+        `todo#delete`,
+
+    - renaming element in list:
+        Renames element from under cursor, adds new date stample, gets input
+        from |input| and gives a prompt with current data from todo, uses
+        `todo#rename`,
+
+    - saving to global file as well as retrieving information from it:
+        On normal quit using mappings `todo#quit` or `todo#quit2`,
+        Todos are saved to file using Icon script which is precompilled on
+        Unix like machine. 
+        If you want to quit without saving changes use `:q<CR>`which will not
+        save changes,
+
+    - checking and unchecking elements from list:
+        Changes state of todo element from checked to unchecked and from
+        unchecked to checked. Date of the element states as to when was the
+        last rename or creation, uses `todo#check`.
+
+        
+=============================================================================
+2. SETTINGS                                               *vim-todo-settings*
+
+
+All settings are located in plugin folder under `./lua/vim_todo/sett.lua`
+
+If You don't know where this plugin is located check: >
+
+    :echo g:SourceFolder
+<
+Every mapping or option have to be in '' signs.
+
+`todo#done` is mark when the element is checked
+`todo#undone` is mark when whe element is unchecked
+
+`todo#quit` and `todo#quit2` are exit mappings, two are independent of each other
+`todo#check` is mapping to check and uncheck element
+`todo#delete` is mapping to delete element under cursor
+`todo#rename` is mapping for renaming an element under cursor
+`todo#add` is a mapping for adding element at the end of the list
+
+
+=============================================================================
+3. DEFAULTS                                             *vim-todo-defaults*
+
+`todo#done` -> ✓
+`todo#undone` -> ✗
+
+`todo#quit` -> <q>
+`todo#quit2` -> <Esc>
+`todo#check` -> <CR>
+`todo#delete` -> <d>
+`todo#rename` -> <r>
+`todo#add` -> <a>
+
+
+
+
+vim:tw=78:ts=8:ft=help:norl:

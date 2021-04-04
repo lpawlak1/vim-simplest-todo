@@ -94,8 +94,8 @@ local function rename(popup)
 end
 
 local opts = {
-    height = 40,
-    width = 80,
+    height = 30,
+    width = 60,
     mode = 'editor',
     close_on_bufleave = true,
     data = get_data(), 
