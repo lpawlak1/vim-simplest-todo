@@ -7,17 +7,23 @@ local border_chars = {
     BOTTOM_RIGHT = '┘',
 }
 
-local function get_checked()
-    return '[' .. vim.g['todo#done'] .. ']'
-end
-
-local function get_unchecked()
-    return '[' .. vim.g['todo#undone'] .. ']'
-end
-
+-- fields with marks for checked and unchecked element
 done_mark = vim.g['todo#done']
 undone_mark = vim.g['todo#undone']
 
+
+-- gets the [mark] 
+local function get_checked()
+    return '[' .. done_mark .. ']'
+end
+
+-- gets the [mark] 
+local function get_unchecked()
+    return '[' .. undone_mark .. ']'
+end
+
+
+-- callbacks for changing selection and closed list
 local function select_callback(index, line)
     -- funciton job here
 end
@@ -26,6 +32,8 @@ local function close_callback(index, line)
     print('Todos closed')
 end
 
+-- changes the state of todo element by using internal (popfix) list element
+-- looks for [mark] and changes it
 local function check(popup)
     index, line = popup:get_current_selection()
     change=""
@@ -42,6 +50,12 @@ local function check(popup)
     print(change)
 end
 
+-- It's used on startup, opens file with lua and uses custom format to get todo
+-- Format is:
+-- First line is 1 or 0 for checked or unchecked
+-- Second line is todo data represented by date(D) and line with name (N):
+--  D | N
+--  This format is needed for rename function
 local function get_data()
     data ={}
     f= io.open(vim.g.SourceFolder .. "todo.md")
@@ -51,7 +65,7 @@ local function get_data()
     for line in f:lines() do
         if new == true then
             new = false
-            if line == '1'then
+            if line == '1' then
                 new_checked = true
                 str = get_checked()
             else
@@ -68,19 +82,27 @@ local function get_data()
     return data
 end
 
+-- Saves file as follows:
+-- 1. saves opened buffer with todo's to temporary tod.md file
+-- 2. saves marks to file named marks.md, as they can be changed from sesh to sesh
+-- 3. executes saveFile precompiled script which changes tod.md raw data to custom format.
 local function save()
     vim.cmd('silent w! ' .. vim.g.SourceFolder .. 'tod.md')
     vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '\\n' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
     vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. vim.g.SourceFolder .. 'saveFile')
 end
 
+
+-- Renames todo item from under cursor
+-- It uses input function from ./plugin/todo.vim file
+-- Message of the input is specified in vim.g.input_messsage
 local function rename(popup)
     index, line = popup:get_current_selection()
     end_index = line:find("|",1)
     vim.g.input_message="Give the name of renamed todo item. Enter q to cancel: "
     name = vim.fn['todo#input'](line:sub(end_index+2)) 
     while name == '' do
-        name = vim.fn['todo#input']() 
+        name = vim.fn['todo#input'](line:sub(end_index+2)) 
     end
     if name == 'q' or name=='Q' then
         return

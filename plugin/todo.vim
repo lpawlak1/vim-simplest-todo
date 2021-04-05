@@ -2,7 +2,6 @@ let g:SourceFolder=expand('<sfile>:p')[:-16]
 
 if (!exists("g:todo#enable"))
     let g:todo#enable=1
-    silent execute "luafile" . g:SourceFolder . "lua/vim-todo/sett.lua"
 endif
 
 if (g:todo#enable == 1)
@@ -20,6 +19,7 @@ function todo#input(prompt)
     return s:strr
 endfunction
 
+" Used for development only for populating sample data into buffer
 function todo#populate()
     setlocal ma
         silent call append(line('.'), '0')
