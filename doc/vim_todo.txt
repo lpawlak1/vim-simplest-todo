@@ -1,4 +1,4 @@
-*vim_todo.txt*  
+*vim-todo*  
 
 =============================================================================
 0. TABLE OF CONTENTS                                         *vim-todo-intro*
@@ -20,29 +20,29 @@ Enable/disable can be achieved by setting: ``g:todo#enable`` to 1 or 0.
 
 
 Current state presents actions:
-    - adding element to list:
+    - adding element to list:~
         Adds element to the very end of the list, gets input from |input|,
         uses `todo#add`,
 
-    - deleting element from list:
+    - deleting element from list: ~
         Deletes element from under the cursor, without warning, uses
         `todo#delete`,
 
-    - renaming element in list:
+    - renaming element in list: ~
         Renames element from under cursor, adds new date stample, gets input
         from |input| and gives a prompt with current data from todo, uses
         `todo#rename`,
 
-    - saving to global file as well as retrieving information from it:
+    - saving to global file as well as retrieving information from it: ~
         On normal quit using mappings `todo#quit` or `todo#quit2`,
         Todos are saved to file using Icon script which is precompilled on
         Unix like machine. 
         If you want to quit without saving changes use `:q<CR>`which will not
         save changes,
 
-    - checking and unchecking elements from list:
+    - checking and unchecking elements from list:~
         Changes state of todo element from checked to unchecked and from
-        unchecked to checked. Date of the element states as to when was the
+        unchecked to checked. Date of the element stays as to when was the
         last rename or creation, uses `todo#check`.
 
         

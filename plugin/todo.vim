@@ -6,6 +6,7 @@ endif
 
 if (g:todo#enable == 1)
     silent execute "! if [ -f " . g:SourceFolder .'todo.md' . " ]; then echo 'Already Exists'; else touch " . g:SourceFolder . 'todo.md' . "; echo 'Created'; fi"
+    silent luafile "lua/vim-todo/sett.lua"
     let str = g:SourceFolder . "lua/vim-todo/todo.lua"
     nnoremap <expr> <leader>o ':silent luafile '. str . '<CR>'
 endif
