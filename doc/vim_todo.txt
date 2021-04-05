@@ -1,4 +1,4 @@
-*vim-todo*  
+*vim_todo.txt*  
 
 =============================================================================
 0. TABLE OF CONTENTS                                         *vim-todo-intro*
@@ -42,7 +42,7 @@ Current state presents actions:
 
     - checking and unchecking elements from list:~
         Changes state of todo element from checked to unchecked and from
-        unchecked to checked. Date of the element stays as to when was the
+        unchecked to checked. Date of the element states as to when was the
         last rename or creation, uses `todo#check`.
 
         
@@ -57,7 +57,7 @@ If You don't know where this plugin is located check: >
 
     :echo g:SourceFolder
 <
-Every mapping or option have to be in '' signs.
+Every mapping or option have to be in '' signs, without height and width.
 
 `todo#done` is mark when the element is checked
 `todo#undone` is mark when whe element is unchecked
@@ -68,19 +68,33 @@ Every mapping or option have to be in '' signs.
 `todo#rename` is mapping for renaming an element under cursor
 `todo#add` is a mapping for adding element at the end of the list
 
+`todo#height` is setting for height of the window
+`todo#width` is setting for width of the window
+
+To edit mappings and settings in `init.vim` use syntax, e.g: >
+    let g:todo#undone = "x"
+<
+In case you love lua in `init.lua` use: >
+    vim.g[todo#undone] = "x"
+<
+    
+
 
 =============================================================================
 3. DEFAULTS                                               *vim-todo-defaults*
 
-`todo#done` -> ✓
+`todo#done`   -> ✓
 `todo#undone` -> ✗
 
-`todo#quit` -> <q>
-`todo#quit2` -> <Esc>
-`todo#check` -> <CR>
+`todo#quit`   -> <q>
+`todo#quit2`  -> <Esc>
+`todo#check`  -> <CR>
 `todo#delete` -> <d>
 `todo#rename` -> <r>
-`todo#add` -> <a>
+`todo#add`    -> <a>
+
+`todo#height` -> 25
+`todo#width`  -> 60
 
 
 =============================================================================

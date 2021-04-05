@@ -5,17 +5,20 @@
 vim-simplest-todo enables you to create and maintain global todo list. It's nothing fancy, but reliable and easy to use. 
 It support adding, renaming, checking, and deleting elements.
 
-#### **Note**: This plugin is only available on Unix machines. No port to Windows is in plans.
+![pres.jpg](./pres.jpg)
 
-#### **Note#2**: This plugin is only available on Neovim.
 
+---
+## Prerequisites
+- Neovim nightly
+- Linux, no port to windows in in plans
+- Apart from this plugin you need to install [popfix](https://github.com/RishabhRD/popfix) but as of today the `master` don't support renaming element and deleting it so please use forked version of [popfix](https://github.com/lpawlak1/popfix) with branch `list-commands`.
 
 ---
 ## Installation
 
 Use your favorite plugin manager to install this plugin. [tpope/vim-pathogen](https://github.com/tpope/vim-pathogen), [VundleVim/Vundle.vim](https://github.com/VundleVim/Vundle.vim), [junegunn/vim-plug](https://github.com/junegunn/vim-plug), and [Shougo/dein.vim](https://github.com/Shougo/dein.vim) are some of the more popular ones.
 
-Apart from this plugin you need to install [popfix](https://github.com/RishabhRD/popfix), but as of today the stable don't support renaming element and deleting it so please use forked version of [popfix](https://github.com/lpawlak1/popfix) with branch `list-commands`.
 
 Personally I use vim-plug and instructions are shown below.
 <details>
@@ -50,8 +53,7 @@ Current state can offer:
 - **`r`** - Renames element from under cursor, adds new date stample, gets input with current data from todo
 
 - **`q`** or **`<Esc>`** - quiting and saving to global file.
-    Todos are saved to file using Icon script which is precompilled on
-    Unix machine. 
+    Todos are saved to file using Icon script which is precompilled. 
     If you want to quit without saving changes use **`:q<CR>`** which will not
     save changes,
 

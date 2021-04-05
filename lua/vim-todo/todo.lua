@@ -116,8 +116,8 @@ local function rename(popup)
 end
 
 local opts = {
-    height = 30,
-    width = 60,
+    height = vim.g['todo#height'],
+    width = vim.g['todo#width'],
     mode = 'editor',
     close_on_bufleave = true,
     data = get_data(), 
