@@ -1,7 +1,12 @@
-*vim_todo.txt*  Plugin that let's you make global todo list
+*vim_todo.txt*  
 
 =============================================================================
-0. INTRO                                                    *vim-todo-intro*
+0. TABLE OF CONTENTS                                         *vim-todo-intro*
+
+    1.|vim-todo-usage|...........Usage intructions and feature summary
+    2.|vim-todo-settings|........Mappings info and settings
+    3.|vim-todo-defaults|........Default settings
+    4.|vim-todo-technical|.......Technical details and their location
 
 
 =============================================================================
@@ -10,6 +15,9 @@
 At the moment plugin supports only keyboard shortcuts
 presented in |vim-todo-settings| and can be adjusted for needs. 
 Defaults are in |vim-todo-defaults|.
+
+Enable/disable can be achieved by setting: ``g:todo#enable`` to 1 or 0.
+
 
 Current state presents actions:
     - adding element to list:
@@ -43,6 +51,7 @@ Current state presents actions:
 
 
 All settings are located in plugin folder under `./lua/vim_todo/sett.lua`
+and can be adjusted in init.vim file
 
 If You don't know where this plugin is located check: >
 
@@ -53,7 +62,7 @@ Every mapping or option have to be in '' signs.
 `todo#done` is mark when the element is checked
 `todo#undone` is mark when whe element is unchecked
 
-`todo#quit` and `todo#quit2` are exit mappings, two are independent of each other
+`todo#quit` and `todo#quit2` are exit mappings, two are independent
 `todo#check` is mapping to check and uncheck element
 `todo#delete` is mapping to delete element under cursor
 `todo#rename` is mapping for renaming an element under cursor
@@ -61,7 +70,7 @@ Every mapping or option have to be in '' signs.
 
 
 =============================================================================
-3. DEFAULTS                                             *vim-todo-defaults*
+3. DEFAULTS                                               *vim-todo-defaults*
 
 `todo#done` -> ✓
 `todo#undone` -> ✗
@@ -74,6 +83,17 @@ Every mapping or option have to be in '' signs.
 `todo#add` -> <a>
 
 
+=============================================================================
+4. TECHNICAL DETAILS                                     *vim-todo-technical*
+
+Plugin's methods are in `./lua/vim_todo/todo.lua`.
+Input handling is in `./plugin/todo.vim`
+Every method and field is documented in lua and vim file.
+
+
+
+Author:  Lukasz Pawlak <lukaszpawlak162.lp@gmail.com>        *vim-todo-author*
+License: Same terms as Vim itself (see |license|)
 
 
 vim:tw=78:ts=8:ft=help:norl:
