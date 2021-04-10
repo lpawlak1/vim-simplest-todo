@@ -13,5 +13,6 @@ vim.g['todo#insertBefore'] = 'i'
 vim.g['todo#insertAtBeg'] = 'I'
 -- end
 
-vim.g['todo#height'] = 25
-vim.g['todo#width'] = 60
+-- vim.g['todo#height'] = 25
+-- vim.g['todo#width'] = 60
+
