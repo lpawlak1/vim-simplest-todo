@@ -1,4 +1,4 @@
-*vim_todo.txt*  
+*vim_todo.txt*  Simple todo list in neovim
 
 =============================================================================
 0. TABLE OF CONTENTS                                         *vim-todo-intro*
@@ -21,11 +21,14 @@ Enable/disable can be achieved by setting: ``g:todo#enable`` to 1 or 0.
 
 Current state presents actions:
     - adding element to list:~
-        Adds element to the very end of the list, gets input from |input|,
-        uses `todo#add`,
+        Adds element to the list, gets input from |input|:
+        - `todo#add` adds element after current line , 
+        - `todo#addAtLast` adds element at end of the list,
+        - `todo#insertBefore` adds element before current line, 
+        - `todo#insertAtBeg` adds element at the beginning of list,
 
     - deleting element from list: ~
-        Deletes element from under the cursor, without warning, uses
+        Deletes element from under the cursor, with warning, uses
         `todo#delete`,
 
     - renaming element in list: ~
@@ -37,7 +40,7 @@ Current state presents actions:
         On normal quit using mappings `todo#quit` or `todo#quit2`,
         Todos are saved to file using Icon script which is precompilled on
         Unix like machine. 
-        If you want to quit without saving changes use `:q<CR>`which will not
+        If you want to quit without saving changes use `:q<CR>` which will not
         save changes,
 
     - checking and unchecking elements from list:~
@@ -50,23 +53,25 @@ Current state presents actions:
 2. SETTINGS                                               *vim-todo-settings*
 
 
-All settings are located in plugin folder under `./lua/vim_todo/sett.lua`
+All default settings are located in plugin folder under `./lua/vim_todo/sett.lua`
 and can be adjusted in init.vim file
 
 If You don't know where this plugin is located check: >
 
     :echo g:SourceFolder
 <
-Every mapping or option have to be in '' signs, without height and width.
-
 `todo#done` is mark when the element is checked
 `todo#undone` is mark when whe element is unchecked
 
 `todo#quit` and `todo#quit2` are exit mappings, two are independent
-`todo#check` is mapping to check and uncheck element
-`todo#delete` is mapping to delete element under cursor
-`todo#rename` is mapping for renaming an element under cursor
-`todo#add` is a mapping for adding element at the end of the list
+`todo#check` checks and uncheck element
+`todo#delete` deletes element under cursor
+`todo#rename` renames an element under cursor
+
+`todo#add` adds element after current line
+`todo#addAtLast` adds element at the end of the list
+`todo#insertBefore` inserts element before current line
+`todo#insertAtBeg` inserts element at the beginning of the list
 
 `todo#height` is setting for height of the window
 `todo#width` is setting for width of the window
@@ -74,35 +79,36 @@ Every mapping or option have to be in '' signs, without height and width.
 To edit mappings and settings in `init.vim` use syntax, e.g: >
     let g:todo#undone = "x"
 <
-In case you love lua in `init.lua` use: >
-    vim.g[todo#undone] = "x"
-<
     
 
 
 =============================================================================
 3. DEFAULTS                                               *vim-todo-defaults*
 
-`todo#done`   -> ✓
-`todo#undone` -> ✗
+`todo#done`         -> ✓
+`todo#undone`       -> ✗
 
-`todo#quit`   -> <q>
-`todo#quit2`  -> <Esc>
-`todo#check`  -> <CR>
-`todo#delete` -> <d>
-`todo#rename` -> <r>
-`todo#add`    -> <a>
+`todo#quit`         -> <q>
+`todo#quit2`        -> <Esc>
+`todo#check`        -> <CR>
+`todo#delete`       -> <d>
+`todo#rename`       -> <r>
+`todo#add`          -> <a>
+`todo#addAtLast`    -> <A>
+`todo#insertBefore` -> <i>
+`todo#insertAtBeg`  -> <I>
 
-`todo#height` -> 25
-`todo#width`  -> 60
+`todo#height` -> (current window height-8)*0.9
+`todo#width`  -> (current window width-8)*0.9
 
 
 =============================================================================
 4. TECHNICAL DETAILS                                     *vim-todo-technical*
 
-Plugin's methods are in `./lua/vim_todo/todo.lua`.
+Plugin's start point is in `./lua/vim_todo/todo.lua`.
 Input handling is in `./plugin/todo.vim`
-Every method and field is documented in lua and vim file.
+Plugin's methods and logic is in `./lua/vim_todo/api_todo.lua`
+Every method and field is documented in lua and vim files.
 
 
 
