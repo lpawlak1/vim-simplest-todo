@@ -20,7 +20,7 @@ function get_height()
     return math.ceil((vim.api.nvim_win_get_height(vim.api.nvim_get_current_win)-8)*0.9)
 end
 function get_width()
-    return math.ceil((vim.api.nvim_win_get_width(vim.api.nvim_get_current_win)-8)*0.8)
+    return math.ceil((vim.api.nvim_win_get_width(vim.api.nvim_get_current_win)-8)*0.9)
 end
 
 local opts = {
@@ -37,7 +37,9 @@ local opts = {
             [vim.g['todo#delete']] =function(popup) list_api:clearElement() end,
             [vim.g['todo#rename']] =function(popup) list_api:renameElement() end,
             [vim.g['todo#addAtLast']] = function(popup) list_api:addElem({index = -1}) end,
-            [vim.g['todo#add']] = function(popup) list_api:addElem({popup = popup}) end,
+            [vim.g['todo#add']] = function(popup) list_api:addElem() end,
+            [vim.g['todo#insertBefore']] = function(popup) list_api:addElem({change = -1}) end,
+            [vim.g['todo#insertAtBeg']] = function(popup) list_api:addElem({index = 0}) end,
         }
     },
     callbacks = {

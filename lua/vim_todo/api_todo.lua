@@ -18,9 +18,13 @@ end
 -- if no index is present index is taken from under cursor and added after it
 function list_api:addElem(data)
     local buf = self.buf
+    if data == nil then data = {} end
     local index = data.index
     local popup = self.popup
+
     if index == nil then index, line = popup:get_current_selection() end
+
+    if data.change then index = index + data.change end
 
     name = self:get_new_todo_input()
     if name == nil then print("Cancelled") return end
@@ -117,6 +121,12 @@ end
 -- 3. executes saveFile precompiled script which changes tod.md raw data to custom format.
 -- 4. Uses external handler for closing buffer
 function list_api:save()
+    vim.g.input_message="Do you want to save [Y/n]: "
+    name = vim.fn['todo#input']('') 
+    if name == 'n' or name=='N' then
+        self.popup:close(close_callback)
+        return
+    end
     vim.cmd('silent w! ' .. vim.g.SourceFolder .. 'tod.md')
     vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '\\n' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
     vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. vim.g.SourceFolder .. 'saveFile')
@@ -126,6 +136,11 @@ end
 
 -- Deletes an element that is under cursor.
 function list_api:clearElement()
+    vim.g.input_message="Do you want to save [y/N]: "
+    name = vim.fn['todo#input']('') 
+    if name == 'n' or name=='N' or name = '' then
+        return
+    end
     local popup = self.popup
     local index,line = popup:get_current_selection()
     local buf = self.buf
