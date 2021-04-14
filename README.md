@@ -5,6 +5,8 @@
 vim-simplest-todo enables you to create and maintain global todo list. It's nothing fancy, but reliable and easy to use. 
 It support adding, renaming, checking, and deleting elements.
 
+It uses [Lua](http://www.lua.org/) with addition of [Icon](https://www2.cs.arizona.edu/icon) and vimscript.
+
 ![pres.jpg](./pres.jpg)
 
 
@@ -12,7 +14,7 @@ It support adding, renaming, checking, and deleting elements.
 ## Prerequisites
 - Neovim nightly
 - Linux, no port to windows in in plans
-- Apart from this plugin you need to install [popfix](https://github.com/RishabhRD/popfix) but as of today the `master` don't support renaming element and deleting it so please use forked version of [popfix](https://github.com/lpawlak1/popfix) with branch `list-commands`.
+- Apart from this plugin you need to install [popfix](https://github.com/RishabhRD/popfix) preferably `master` branch.
 
 ---
 ## Installation
@@ -28,11 +30,11 @@ Personally I use vim-plug and instructions are shown below.
 2. Add the following text to your `init.vim`.
 ```vim
 call plug#begin()
-  Plug 'lpawlak1/popfix', { 'branch': 'list-commands' }
+  Plug 'RishabhRD/popfix'
   Plug 'lpawlak1/vim-simplest-todo'
 call plug#end()
 ```
-3. Restart Vim, and run the `:PlugInstall` statement to install your plugins.
+3. Restart Vim, and run the `:PlugInstall` to install your plugins.
 </details>
 
 ---
@@ -46,14 +48,20 @@ At the moment plugin supports only keyboard shortcuts
 presented below.
 
 Current state can offer:
-- **`a`** - Adds element to the very end of the list
+- **`a`** - Adds element after current line 
+
+- **`A`** - Adds element to the very end of the list
+
+- **`i`** - Adds element before current line
+
+- **`I`** - Adds element at the beginning of the list
 
 - **`d`** - Deletes element from under the cursor, without warning
 
 - **`r`** - Renames element from under cursor, adds new date stample, gets input with current data from todo
 
 - **`q`** or **`<Esc>`** - quiting and saving to global file.
-    Todos are saved to file using Icon script which is precompilled. 
+    Todos are saved to file using [Icon](https://www2.cs.arizona.edu/icon) script which is precompilled. 
     If you want to quit without saving changes use **`:q<CR>`** which will not
     save changes,
 
@@ -61,10 +69,6 @@ Current state can offer:
     last rename or creation.
 
  **Note:** More informations on mappings and settings in `:help vim-todo`.
-
----
-## Known bugs
-- If you encounter window not opening try to tweek height and width of window.
 
 ---
 ## Feedback
