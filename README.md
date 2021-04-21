@@ -5,7 +5,7 @@
 vim-simplest-todo enables you to create and maintain global todo list. It's nothing fancy, but reliable and easy to use. 
 It support adding, renaming, checking, and deleting elements.
 
-It uses [Lua](http://www.lua.org/) with addition of [Icon](https://www2.cs.arizona.edu/icon) and vimscript.
+It uses [Lua](http://www.lua.org/) with addition of ~~[Icon](https://www2.cs.arizona.edu/icon) and vimscript~~ python3.
 
 ![pres.jpg](./pres.jpg)
 
@@ -61,7 +61,7 @@ Current state can offer:
 - **`r`** - Renames element from under cursor, adds new date stample, gets input with current data from todo
 
 - **`q`** or **`<Esc>`** - quiting and saving to global file.
-    Todos are saved to file using [Icon](https://www2.cs.arizona.edu/icon) script which is precompilled. 
+    Todos are saved to file using python3. 
     If you want to quit without saving changes use **`:q<CR>`** which will not
     save changes,
 

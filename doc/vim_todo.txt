@@ -38,8 +38,7 @@ Current state presents actions:
 
     - saving to global file as well as retrieving information from it: ~
         On normal quit using mappings `todo#quit` or `todo#quit2`,
-        Todos are saved to file using Icon script which is precompilled on
-        Unix like machine. 
+        Todos are saved to file using python3 script.
         If you want to quit without saving changes use `:q<CR>` which will not
         save changes,
 

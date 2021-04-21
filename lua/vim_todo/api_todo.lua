@@ -22,21 +22,35 @@ function list_api:addElem(data)
     local index = data.index
     local popup = self.popup
 
-    if index == nil then index, line = popup:get_current_selection() end
+    if popup.list.numData == 0 then 
+        index = 0
+        name = self:get_new_todo_input()
+        if name == nil then print("Cancelled") return end
 
-    if data.change then index = index + data.change end
+        line = {self:get_unchecked() .. os.date(" %d/%m/%y, %H:%M| ") .. name}
 
-    name = self:get_new_todo_input()
-    if name == nil then print("Cancelled") return end
+        if api.nvim_buf_is_loaded(buf) then
+            api.nvim_buf_set_option(buf, 'modifiable', true)
+            api.nvim_buf_set_lines(buf,index,index+1,true,line) 
+            api.nvim_buf_set_option(buf, 'modifiable', false)
+        end
+    else
+        if index == nil then index, line = popup:get_current_selection() end
+        index = index or -1
 
-    line = {self:get_unchecked() .. os.date(" %d/%m/%y, %H:%M| ") .. name}
+        if data.change then index = index + data.change end
 
-    if api.nvim_buf_is_loaded(buf) then
-        api.nvim_buf_set_option(buf, 'modifiable', true)
-        api.nvim_buf_set_lines(buf,index,index,true,line) 
-        api.nvim_buf_set_option(buf, 'modifiable', false)
+        name = self:get_new_todo_input()
+        if name == nil then print("Cancelled") return end
+
+        line = {self:get_unchecked() .. os.date(" %d/%m/%y, %H:%M| ") .. name}
+
+        if api.nvim_buf_is_loaded(buf) then
+            api.nvim_buf_set_option(buf, 'modifiable', true)
+            api.nvim_buf_set_lines(buf,index,index,true,line) 
+            api.nvim_buf_set_option(buf, 'modifiable', false)
+        end
     end
-
     popup.list.numData  = popup.list.numData + 1
 end
 -- gets the [mark] 
@@ -69,6 +83,7 @@ end
 function list_api:check(data)
     local popup = self.popup
     index, line = popup:get_current_selection()
+    if index == nil then return end
     change=""
     if string.find(line,self:get_checked(),1,true) then
         line = string.gsub(line,vim.g['todo#done'],vim.g['todo#undone'],1)
@@ -129,14 +144,14 @@ function list_api:save()
     end
     vim.cmd('silent w! ' .. vim.g.SourceFolder .. 'tod.md')
     vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '\\n' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
-    vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. vim.g.SourceFolder .. 'saveFile')
+    vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. 'python3 save.py')
     self.popup:close(close_callback)
 end
 
 
 -- Deletes an element that is under cursor.
 function list_api:clearElement()
-    vim.g.input_message="Do you want to save [y/N]: "
+    vim.g.input_message="Do you want to delete selected element [y/N]: "
     name = vim.fn['todo#input']('') 
     if name == 'n' or name == 'N' or name == '' then
         return
@@ -144,6 +159,8 @@ function list_api:clearElement()
     local popup = self.popup
     local index,line = popup:get_current_selection()
     local buf = self.buf
+
+    if index == nil then return end 
 
     index = index-1
     if index < 0 or index > popup.list.numData then return end
@@ -169,9 +186,11 @@ function list_api:renameElement(data)
     local popup = self.popup
     local buf = self.buf
     if data == nil then data = {} end
+    index, line = popup:get_current_selection()
+
+    if index == nil then return end
 
     if data.line == nil then
-        index, line = popup:get_current_selection()
         end_index = line:find("|",1)
         vim.g.input_message="Give the name of renamed todo item. Enter q to cancel: "
         name = vim.fn['todo#input'](line:sub(end_index+2)) 
