@@ -138,7 +138,7 @@ end
 function list_api:clearElement()
     vim.g.input_message="Do you want to save [y/N]: "
     name = vim.fn['todo#input']('') 
-    if name == 'n' or name=='N' or name = '' then
+    if name == 'n' or name == 'N' or name == '' then
         return
     end
     local popup = self.popup
