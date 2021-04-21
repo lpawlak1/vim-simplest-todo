@@ -5,7 +5,7 @@
 vim-simplest-todo enables you to create and maintain global todo list. It's nothing fancy, but reliable and easy to use. 
 It support adding, renaming, checking, and deleting elements.
 
-It uses [Lua](http://www.lua.org/) with addition of ~~[Icon](https://www2.cs.arizona.edu/icon) and vimscript~~ python3.
+It uses [Lua](http://www.lua.org/) with addition of ~~[Icon](https://www2.cs.arizona.edu/icon)~~ python3 and vimscript.
 
 ![pres.jpg](./pres.jpg)
 
