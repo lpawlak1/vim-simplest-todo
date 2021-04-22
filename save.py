@@ -1,8 +1,8 @@
 marks = open("marks.md", "r")
 out = open("todo.md", "w+")
 in_ = open("tod.md", "r")
-undone_mark = marks.readline().strip()
 done_mark = marks.readline().strip()
+undone_mark = marks.readline().strip()
 marks.close()
 for line in in_.readlines():
     if undone_mark in line:
