@@ -143,7 +143,7 @@ function list_api:save()
         return
     end
     vim.cmd('silent w! ' .. vim.g.SourceFolder .. 'tod.md')
-    vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '\\n' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
+    vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '|' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
     vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. 'python3 save.py')
     self.popup:close(close_callback)
 end
