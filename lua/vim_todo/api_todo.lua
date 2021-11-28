@@ -22,7 +22,7 @@ function list_api:addElem(data)
     local index = data.index
     local popup = self.popup
 
-    if popup.list.numData == 0 then 
+    if popup.list.numData == 0 then
         index = 0
         name = self:get_new_todo_input()
         if name == nil then print("Cancelled") return end
@@ -31,7 +31,7 @@ function list_api:addElem(data)
 
         if api.nvim_buf_is_loaded(buf) then
             api.nvim_buf_set_option(buf, 'modifiable', true)
-            api.nvim_buf_set_lines(buf,index,index+1,true,line) 
+            api.nvim_buf_set_lines(buf,index,index+1,true,line)
             api.nvim_buf_set_option(buf, 'modifiable', false)
         end
     else
@@ -47,18 +47,18 @@ function list_api:addElem(data)
 
         if api.nvim_buf_is_loaded(buf) then
             api.nvim_buf_set_option(buf, 'modifiable', true)
-            api.nvim_buf_set_lines(buf,index,index,true,line) 
+            api.nvim_buf_set_lines(buf,index,index,true,line)
             api.nvim_buf_set_option(buf, 'modifiable', false)
         end
     end
     popup.list.numData  = popup.list.numData + 1
 end
--- gets the [mark] 
+-- gets the [mark]
 function list_api:get_checked()
     return '[' .. vim.g['todo#done'] .. ']'
 end
 
--- gets the [mark] 
+-- gets the [mark]
 function list_api:get_unchecked()
     return '[' .. vim.g['todo#undone'] .. ']'
 end
@@ -67,9 +67,9 @@ end
 -- It uses input function from ./plugin/todo.vim file
 function list_api:get_new_todo_input()
     vim.g.input_message="Give the name of new todo item, send q to escape: "
-    str = vim.fn['todo#input']('') 
+    str = vim.fn['todo#input']('')
     while str == '' do
-        str = vim.fn['todo#input']() 
+        str = vim.fn['todo#input']()
     end
     if str == 'q' or str=='Q' then
         return
@@ -137,13 +137,16 @@ end
 -- 4. Uses external handler for closing buffer
 function list_api:save()
     vim.g.input_message="Do you want to save [Y/n]: "
-    name = vim.fn['todo#input']('') 
+    name = vim.fn['todo#input']('')
     if name == 'n' or name=='N' then
         self.popup:close(close_callback)
         return
     end
+    local buf = self.buf
+    api.nvim_buf_set_option(buf, 'modifiable', true)
+    local substitution = 'silent ! echo "' .. vim.g['todo#done'] .. '|' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md'
     vim.cmd('silent w! ' .. vim.g.SourceFolder .. 'tod.md')
-    vim.cmd('silent ! echo "' .. vim.g['todo#done'] .. '|' .. vim.g['todo#undone'] .. '" > ' .. vim.g.SourceFolder .. 'marks.md')
+    vim.cmd(substitution)
     vim.cmd('silent ! cd ' .. vim.g.SourceFolder .. ' && ' .. 'python3 save.py')
     self.popup:close(close_callback)
 end
@@ -152,7 +155,7 @@ end
 -- Deletes an element that is under cursor.
 function list_api:clearElement()
     vim.g.input_message="Do you want to delete selected element [y/N]: "
-    name = vim.fn['todo#input']('') 
+    name = vim.fn['todo#input']('')
     if name == 'n' or name == 'N' or name == '' then
         return
     end
@@ -160,14 +163,14 @@ function list_api:clearElement()
     local index,line = popup:get_current_selection()
     local buf = self.buf
 
-    if index == nil then return end 
+    if index == nil then return end
 
     index = index-1
     if index < 0 or index > popup.list.numData then return end
 
     local start = index
     local ending = -1
-    if index + 1 ~= popup.list.numData then 
+    if index + 1 ~= popup.list.numData then
         ending = index+1
     end
 
@@ -193,9 +196,9 @@ function list_api:renameElement(data)
     if data.line == nil then
         end_index = line:find("|",1)
         vim.g.input_message="Give the name of renamed todo item. Enter q to cancel: "
-        name = vim.fn['todo#input'](line:sub(end_index+2)) 
+        name = vim.fn['todo#input'](line:sub(end_index+2))
         while name == '' do
-            name = vim.fn['todo#input'](line:sub(end_index+2)) 
+            name = vim.fn['todo#input'](line:sub(end_index+2))
         end
         if name == 'q' or name=='Q' then
             return
@@ -212,7 +215,7 @@ function list_api:renameElement(data)
     if index < 0 or index > popup.list.numData then return end
 
     local ending = -1
-    if index + 1 ~= popup.list.numData then 
+    if index + 1 ~= popup.list.numData then
         ending = index+1
     end
 

@@ -2,7 +2,7 @@ local api = vim.api
 local M = {}
 
 -- settings loading
-require'vim_todo.sett'
+local essa = require 'vim_todo.sett'
 
 -- callbacks for changing selection and closed list
 function select_callback(index, line)
@@ -13,7 +13,7 @@ function close_callback(index, line)
     print('Todos closed')
 end
 
-local list_api = require'vim_todo.api_todo'
+local list_api = require 'vim_todo.api_todo'
 list_api:new()
 
 function get_height()
@@ -28,7 +28,7 @@ local opts = {
     width = vim.g['todo#width'] or get_width(),
     mode = 'editor',
     close_on_bufleave = true,
-    data = list_api:get_data(), 
+    data = list_api:get_data(),
     keymaps = {
         n = {
             [vim.g['todo#quit']] = function(popup) list_api:save() end,
